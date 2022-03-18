@@ -44,7 +44,7 @@ def prepare_img(img):
 def model_fn(model_dir):
     arch='vit_base_patch16'
     # load model
-    model_dir=os.path.join(model_dir, 'checkpoint.pth')
+    model_dir=os.path.join(model_dir, 'checkpoint-2.pth')
     checkpoint = torch.load(model_dir, map_location='cuda:0')
     num_classes=checkpoint['model']['head.weight'].shape[0]
     # build model
