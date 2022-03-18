@@ -121,7 +121,7 @@ def get_args_parser():
                         help='dataset path')
     parser.add_argument('--nb_classes', default=1000, type=int,
                         help='number of the classification types')
-    parser.add_argument('--save_last_only', default=False,
+    parser.add_argument('--save_last_only', default=True,
                         help='save last model or not')
     parser.add_argument('--output_dir', default='./output_dir',
                         help='path where to save, empty for no saving')
