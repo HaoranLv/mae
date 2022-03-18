@@ -42,15 +42,17 @@ def prepare_img(img):
     return img
 
 def model_fn(model_dir):
-    arch='vit_large_patch16'
+    arch='vit_base_patch16'
+    # load model
+    model_dir=os.path.join(model_dir, 'checkpoint.pth')
+    checkpoint = torch.load(model_dir, map_location='cuda:0')
+    num_classes=checkpoint['model']['head.weight'].shape[0]
     # build model
     model = models_vit.__dict__[arch](
-        num_classes=2,
+        num_classes=num_classes,
         drop_path_rate=0,
         global_pool=False,
     )
-    # load model
-    checkpoint = torch.load(model_dir, map_location='cuda:0')
     interpolate_pos_embed(model, checkpoint['model'])
     msg = model.load_state_dict(checkpoint['model'], strict=False)
     return model
@@ -89,6 +91,6 @@ def predict_fn(input_data, model):
 
 if __name__ == '__main__':
     import cv2
-    input_data = cv2.imread('../../data/images/inference/bus.jpg')
+    input_data = cv2.imread('../../000000.jpg')
     model = model_fn('../')
     result = predict_fn(input_data, model)
