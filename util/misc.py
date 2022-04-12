@@ -316,8 +316,8 @@ def save_model(args, epoch, model, model_without_ddp, optimizer, loss_scaler, te
     if len(epoch_list)>save_limit:
         remove_idx=acc_list.index(min(acc_list))
         acc_list.pop(remove_idx)
-        epoch_list.pop(remove_idx)
-        os.remove(os.path.join(args.output_dir,'checkpoint-{}.pth'.format(epoch)))
+        remove_epoch=epoch_list.pop(remove_idx)
+        os.remove(os.path.join(args.output_dir,'checkpoint-{}.pth'.format(remove_epoch)))
     return epoch_list, acc_list
 
 
