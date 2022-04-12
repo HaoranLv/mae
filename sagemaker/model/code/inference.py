@@ -3,6 +3,7 @@ import time
 import torch
 import numpy as np
 import models_vit
+import cv2
 from PIL import Image
 imgsz = 640
 imagenet_mean = np.array([0.485, 0.456, 0.406])
@@ -44,7 +45,7 @@ def prepare_img(img):
 def model_fn(model_dir):
     arch='vit_base_patch16'
     # load model
-    model_dir=os.path.join(model_dir, 'checkpoint-2.pth')
+    model_dir=os.path.join(model_dir, 'checkpoint-best.pth')
     checkpoint = torch.load(model_dir, map_location='cuda:0')
     num_classes=checkpoint['model']['head.weight'].shape[0]
     # build model
